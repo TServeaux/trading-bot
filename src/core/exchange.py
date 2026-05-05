@@ -22,9 +22,9 @@ class Exchange:
             price = self.__exchange.fetch_ticker(f'{i}/USDT:USDT')
             self.__pairsPrices[i] = price
         
+    def getExchange(self):
+        return self.__exchange
         
-        
-    
     def lever(self):
         pass
     
