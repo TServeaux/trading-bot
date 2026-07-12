@@ -1,5 +1,4 @@
 import ccxt
-import numpy as np
 
 class Exchange:
     
@@ -64,6 +63,7 @@ class Exchange:
         trade['side'] = info['side']
         trade['openPrice'] = info['price']
         trade['status'] = info['status']
+        trade['id'] = info['id']
 
         trade['takeProfit'] = tp
         trade['stopLoss'] = sl
@@ -96,3 +96,6 @@ class Exchange:
         self.__trades[id]['profit'] = profit
 
         return self.__trades[id]
+    
+    def getExchange(self):
+        return self.__exchange
