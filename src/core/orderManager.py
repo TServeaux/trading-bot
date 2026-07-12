@@ -26,26 +26,35 @@ class OrderManager:
                 self._isLong = True
 
                 if self._isShort:
-                    self._riskManager.manageCash(self._exchange.closePos(self._id)['profit'])
+
+                    closedTrade = self._exchange.closePos(self._id)
+                    self._riskManager.manageCash(closedTrade['profit'])
                     self._riskManager.releaseCash(lastAmount)
                     self._isShort = False
-                    self._id = self._exchange.openPos(position, self._symbol, self._amount, takeProfit, stopLoss)['id']
+
+                    openedTrade = self._exchange.openPos(position, self._symbol, self._amount, takeProfit, stopLoss)
+                    self._id =openedTrade['id']
 
                 else :
-                    self._id = self._exchange.openPos(position,  self._symbol, self._amount, takeProfit, stopLoss)['id']
+                    openedTrade = self._exchange.openPos(position, self._symbol, self._amount, takeProfit, stopLoss)
+                    self._id =openedTrade['id']
                 
             
             elif position == 'short' and not self._isShort:
                 self._isShort = True
 
                 if self._isLong:
-                    self._riskManager.manageCash(self._exchange.closePos(self._id)['profit'])
+                    closedTrade = self._exchange.closePos(self._id)
+                    self._riskManager.manageCash(closedTrade['profit'])
                     self._riskManager.releaseCash(lastAmount)
                     self._isLong = False
-                    self._id = self._exchange.openPos(position, self._symbol, self._amount, takeProfit, stopLoss)['id']
+
+                    openedTrade = self._exchange.openPos(position, self._symbol, self._amount, takeProfit, stopLoss)
+                    self._id = openedTrade['id']
 
                 else :
-                    self._id = self._exchange.openPos(position, self._symbol, self._amount, takeProfit, stopLoss)['id']
+                    openedTrade = self._exchange.openPos(position, self._symbol, self._amount, takeProfit, stopLoss)
+                    self._id =openedTrade['id']
 
         else :
             return -1 

@@ -1,7 +1,4 @@
 from baseStrategie import BaseStrategie
-from strategieBollinger import StrategieBollinger
-from strategieMACD import StrategieMACD
-from strategieRSI import StrategieRSI
 
 class CombinedStrategie(BaseStrategie):
 

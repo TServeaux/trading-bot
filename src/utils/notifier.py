@@ -1,0 +1,36 @@
+import requests
+
+class Notifier:
+
+    def __init__(self, token, chatId):
+        self._token = token
+        self._chatId = chatId
+    
+    def _sendMessage(self, text):
+        requests.post(f'https://api.telegram.org/bot{self._token}/sendMessage',
+                       data={'chat_id' : self._chatId, 'text' : text})
+
+    def sendTradeOpened(self, trade):
+        text = (
+            f"Trade ouvert : {trade['openTimestamp']}\n"
+            f"Position : {trade['side']}\n"
+            f"Prix : {trade['openPrice']}\n"
+            f"Montant : {trade['amount']}"
+        )
+        self._sendMessage(text=text)
+    
+    def sendTradeClosed(self, trade):
+        text = (
+            f"Trade ferme : {trade['closedTimestamp']}\n"
+            f"Prix : {trade['closedPrice']}\n"
+            f"Profit : {trade['profit']}"
+        )
+        self._sendMessage(text=text)
+
+    def sendError(self,err):
+        self._sendMessage(text=err)
+    
+    def sendStats(self, stats):
+        #requests.post('https://api.telegram.org/bot{self._token}/sendMessage',
+                      #data={'chat_id' : , 'text' : })
+        pass
