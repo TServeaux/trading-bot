@@ -99,3 +99,6 @@ class Exchange:
     
     def getExchange(self):
         return self.__exchange
+
+    def getTrade(self, id):
+        return self.__trades[id]

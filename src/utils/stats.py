@@ -1,4 +1,4 @@
-class Statistic :
+class Stats:
 
     def __init__(self):
 
@@ -49,6 +49,3 @@ class Statistic :
         stats['lose'] = self._lose
 
         return stats, self._alltrade
-
-    def saveData(self):
-        pass
