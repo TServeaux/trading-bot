@@ -7,6 +7,6 @@ class DataFeed:
     
     def getCandles(self, symbol, timeFrame, limit) :
         
-        candles = self.__exchange.fetch_ohlcv(symbol, timeFrame, limit)
+        candles = self.__exchange.fetch_ohlcv(symbol, timeFrame, limit=limit)
         
         return candles

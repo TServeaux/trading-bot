@@ -18,7 +18,7 @@ from .utils.stats import Stats
 class Bot:
 
     def __init__(self, apiKey, secretKey, tokenTelegram, chatId, symbol, paperMode=True,
-                 xLever=10, takeProfit=0.3, stopLoss=0.2, pourcentage=0.2, timeFrame='1h', maxTime=7, limit=100):
+                 xLever=10, takeProfit=30, stopLoss=20, pourcentage=0.2, timeFrame='5m', maxTime=7, limit=100):
 
         self._timeFrame = timeFrame
         self._symbol = symbol
@@ -63,6 +63,7 @@ class Bot:
     def run(self):
 
         start = time.time()
+        print("Bot démarré")
 
         combos = {}
         for key in self._strategies:
@@ -70,13 +71,16 @@ class Bot:
 
         while time.time() - start < self._maxTime * 24 * 3600 :
             candles = self._dataFeed.getCandles(self._symbol, self._timeFrame, self._limit)
+            print(f"Prix actuel : {self._exchange.checkPrice(self._symbol)}")
+            print(f"Nombre de bougies : {len(candles)}")
 
             if self._paperMode:
                 self._exchange.checkTPSL()
 
             signaux = CombinedStrategie(candles, combos).signal()
+            print(f"Signaux : {signaux}")
             
             for key, signal in signaux.items():
                 self._strategies[key]['order'].takeOrder(signal, self._takeProfit, self._stopLoss, self._pourcentage)
         
-            time.sleep(60)
+            time.sleep(300)

@@ -1,5 +1,5 @@
 import pandas as pd
-from baseStrategie import BaseStrategie
+from .baseStrategie import BaseStrategie
 import ta
 
 class StrategieRSI(BaseStrategie):

@@ -7,8 +7,10 @@ class Notifier:
         self._chatId = chatId
     
     def _sendMessage(self, text):
-        requests.post(f'https://api.telegram.org/bot{self._token}/sendMessage',
+        r= requests.post(f'https://api.telegram.org/bot{self._token}/sendMessage',
                        data={'chat_id' : self._chatId, 'text' : text})
+
+        print(r.json())
 
     def sendTradeOpened(self, trade):
         text = (

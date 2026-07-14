@@ -1,4 +1,4 @@
-from baseStrategie import BaseStrategie
+from .baseStrategie import BaseStrategie
 
 class CombinedStrategie(BaseStrategie):
 
