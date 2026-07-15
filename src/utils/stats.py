@@ -1,3 +1,6 @@
+import json
+import os
+
 class Stats:
 
     def __init__(self):
@@ -49,3 +52,14 @@ class Stats:
         stats['lose'] = self._lose
 
         return stats, self._alltrade
+
+    def saveData(self, filename):
+        
+        os.makedirs('data', exist_ok=True)
+
+        path = os.path.join('data', filename)
+        stats, trades = self.getStats()
+        data = {'stats' : stats, 'trades' : trades}
+
+        with open(path, 'w') as f :
+            json.dump(data, f, indent=4)

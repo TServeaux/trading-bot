@@ -1,6 +1,6 @@
 class OrderManager:
 
-    def __init__(self, exchange, riskManager, symbol, notifier, stats):
+    def __init__(self, exchange, riskManager, symbol, notifier, stats, name):
 
         self._isShort = False
         self._isLong = False
@@ -12,6 +12,7 @@ class OrderManager:
         self._symbol = symbol
         self._notifier = notifier
         self._stats = stats
+        self._name = name
     
     def takeOrder(self, position, takeProfit, stopLoss, pourcentage):
 
@@ -37,6 +38,7 @@ class OrderManager:
                     self._isShort = False
                     self._stats.tradeFinished(closedTrade)
                     self._notifier.sendTradeClosed(closedTrade)
+                    self._stats.saveData(f'{self._name}.json')
 
                     openedTrade = self._exchange.openPos(position, self._symbol, self._amount, takeProfit, stopLoss)
                     self._notifier.sendTradeOpened(openedTrade)
@@ -58,6 +60,7 @@ class OrderManager:
                     self._isLong = False
                     self._stats.tradeFinished(closedTrade)
                     self._notifier.sendTradeClosed(closedTrade)
+                    self._stats.saveData(f'{self._name}.json')
 
                     openedTrade = self._exchange.openPos(position, self._symbol, self._amount, takeProfit, stopLoss)
                     self._notifier.sendTradeOpened(openedTrade)
@@ -79,6 +82,7 @@ class OrderManager:
                 self._riskManager.releaseCash(self._amount)
                 self._stats.tradeFinished(trade)
                 self._notifier.sendTradeClosed(trade)
+                self._stats.saveData(f'{self._name}.json')
                 self._isLong = False
                 self._isShort = False
                 self._id = None
