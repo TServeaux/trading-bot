@@ -9,7 +9,6 @@ from .core.paperExchange import PaperExchange
 from .strategy.strategieRSI import StrategieRSI
 from .strategy.strategieBollinger import StrategieBollinger
 from .strategy.strategieMACD import StrategieMACD
-from .strategy.combinedStrategie import CombinedStrategie
 
 from .risk.riskManager import RiskManager
 
@@ -41,26 +40,6 @@ class Bot:
         self._notifier = Notifier(tokenTelegram, chatId)
         self._dataFeed = DataFeed(self._exchange)
         
-        self._strategies = {}
-
-        risk, stats = RiskManager(), Stats()
-        self._strategies['RSIxMACD'] = {'combo': (StrategieRSI,StrategieMACD),
-                                        'risk': risk,
-                                        'order': OrderManager(self._exchange, risk, self._symbol, self._notifier, stats, 'RSIxMACD'),
-                                        'stats': stats}
-        
-        risk, stats = RiskManager(), Stats()
-        self._strategies['RSIxBollinger'] = {'combo': (StrategieRSI,StrategieBollinger), 
-                                            'risk': risk,
-                                            'order': OrderManager(self._exchange, risk, self._symbol, self._notifier, stats, 'RSIxBollinger'),
-                                            'stats': stats}
-        
-        risk, stats = RiskManager(), Stats()
-        self._strategies['BollingerxMACD'] = {'combo': (StrategieBollinger,StrategieMACD),
-                                              'risk': risk,
-                                              'order': OrderManager(self._exchange, risk, self._symbol, self._notifier, stats , 'BollingerxMACD'),
-                                              'stats': stats}
-        
     def run(self):
 
         start = time.time()
@@ -81,7 +60,7 @@ class Bot:
                 if self._paperMode:
                     self._exchange.checkTPSL()
 
-                signaux = CombinedStrategie(candles, combos).signal()
+                signaux = 'hold'
                 print(f"Signaux : {signaux}")
                 
                 for key, signal in signaux.items():
