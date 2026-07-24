@@ -2,7 +2,7 @@ import pandas as pd
 from .baseStrategie import BaseStrategie
 import ta
 
-c:
+class StrategyOBV(BaseStrategie):
 
     def __init__(self, candles, window=14):
         super().__init__(candles)
