@@ -15,7 +15,7 @@ class PaperExchange :
     def lever(self, xLever=10):
         self._lever = xLever
 
-    def openPos(self, direction, symbol, amount, takeProfit=30, stopLoss=20):
+    def openPos(self, direction, symbol, amount, takeProfit=3, stopLoss=1.5):
         price = self.checkPrice(symbol)
         self._nextId += 1
         tradeId = str(self._nextId)
@@ -53,9 +53,11 @@ class PaperExchange :
         price = self.checkPrice( self._trades[id]['symbol'])
     
         if self._trades[id]['side'] == 'buy' :
-            profit = price - self._trades[id]['openPrice']
+            variation = (price - self._trades[id]['openPrice']) / self._trades[id]['openPrice']
+            profit = variation * self._trades[id]['amount'] * self._lever  
         else :
-            profit = self._trades[id]['openPrice'] - price
+            variation = (self._trades[id]['openPrice'] - price) / self._trades[id]['openPrice']
+            profit = variation * self._trades[id]['amount'] * self._lever
 
         self._trades[id]['closedTimestamp'] = int(time.time() * 1000)
         self._trades[id]['closedPrice'] = price
