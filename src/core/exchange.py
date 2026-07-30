@@ -36,7 +36,7 @@ class Exchange:
         
         return self.__exchange.fetch_positions()
     
-    def openPos(self, direction, symbol, amount, takeProfit=30, stopLoss=20):
+    def openPos(self, direction, symbol, amount, takeProfit=3, stopLoss=1.5):
         
         price = self.checkPrice(symbol)
 

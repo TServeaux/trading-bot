@@ -63,3 +63,24 @@ class Stats:
 
         with open(path, 'w') as f :
             json.dump(data, f, indent=4)
+
+    def loadData(self, filename):
+
+        path = os.path.join('data', filename)
+
+        if not os.path.exists(path):
+            return
+
+        with open(path, 'r') as f:
+            data = json.load(f)
+
+        stats = data['stats']
+        
+        self._totalTrades = stats['totalsTrades']
+        self._totalProfit = stats['totalsProfits']
+        self._bestTrade = stats['bestTrade']
+        self._worstTrade = stats['worstTrade']
+        self._winrate = stats['winrate']
+        self._win = stats['win']
+        self._lose = stats['lose']
+        self._alltrade = data['trades'] 

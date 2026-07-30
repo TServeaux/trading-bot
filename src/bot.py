@@ -44,6 +44,7 @@ class Bot:
         self._strategies = {}
         for name, strats in combos.items():
             risk, stats = RiskManager(), Stats()
+            stats.loadData(f'{name}.json')
             self._strategies[name] = {
                 'combo': strats,
                 'risk': risk,
@@ -62,13 +63,13 @@ class Bot:
                 
         
     def run(self):
-        start = time.time()
         print("Bot démarré")
 
         while True :
             errorOccured = False    
 
             try :
+                self._notifier.getCommand(self._strategies)
                 candles = self._dataFeed.getCandles(self._symbol, self._timeFrame, self._limit)
                 print(f"Prix actuel : {self._exchange.checkPrice(self._symbol)}")
                 print(f"Nombre de bougies : {len(candles)}")
