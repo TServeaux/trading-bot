@@ -24,7 +24,7 @@ symbol = 'TAO/USD:USD'
 
 if __name__ == '__main__':
     combos = {'MACDxRSIxMFI' : [StrategieMACD,StrategieRSI,StrategyMFI],
-              'EMAxStochxOBV' : [StrategieEMA,StrategieStochastic,StrategyOBV],
+              'EMAxStochxOBV' :[StrategieEMA,StrategieStochastic,StrategyOBV],
               'MACDxRSIxADX' : [StrategieMACD,StrategieRSI,StrategieADX],
               'DonchianxADXxMFI' : [StrategyDonchian,StrategieADX,StrategyMFI],
               'BollingerxRSIxMFI' : [StrategieBollinger,StrategieRSI,StrategyMFI]

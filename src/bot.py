@@ -16,11 +16,10 @@ from .utils.stats import Stats
 class Bot:
 
     def __init__(self, apiKey, secretKey, tokenTelegram, chatId, symbol, combos, paperMode=True,
-                 xLever=5, takeProfit=30, stopLoss=20, pourcentage=0.2, timeFrame='5m', maxTime=7, limit=100):
+                 xLever=5, takeProfit=3, stopLoss=1.5, pourcentage=0.2,temps=900, timeFrame='15m', limit=100):
 
         self._timeFrame = timeFrame
         self._symbol = symbol
-        self._maxTime = maxTime #jours
         self._limit = limit
         self._takeProfit = takeProfit
         self._stopLoss = stopLoss
@@ -28,6 +27,8 @@ class Bot:
         self._paperMode = paperMode
         self._lever = xLever
         self._combos = combos
+        self._time = temps
+        
 
         realExchange = Exchange(apiKey, secretKey)
 
@@ -38,6 +39,7 @@ class Bot:
         
         self._notifier = Notifier(tokenTelegram, chatId)
         self._dataFeed = DataFeed(self._exchange)
+        self.setTime()
 
         self._strategies = {}
         for name, strats in combos.items():
@@ -48,12 +50,22 @@ class Bot:
                 'order': OrderManager(self._exchange, risk, self._symbol, self._notifier, stats, name),
                 'stats': stats
             }
+    
+    def setTime(self):
+        letters = ['s','m','h','d']
+        seconds = [1,60,3600,86400]
+        
+        for i in range(len(letters)):
+            if letters[i] in self._timeFrame :
+                tps = self._timeFrame.split(letters[i])[0]
+                self._time = int(tps)*seconds[i]
+                
         
     def run(self):
         start = time.time()
         print("Bot démarré")
 
-        while time.time() - start < self._maxTime * 24 * 3600 :
+        while True :
             errorOccured = False    
 
             try :
@@ -62,6 +74,7 @@ class Bot:
                 print(f"Nombre de bougies : {len(candles)}")
 
                 signaux = CombinedStrategie(candles, self._combos).signal()
+                print(f"Signaux : {signaux}")
 
                 if self._paperMode:
                     self._exchange.checkTPSL()
@@ -83,6 +96,6 @@ class Bot:
                 errorOccured = True
             
             if not errorOccured :
-                time.sleep(300)
+                time.sleep(self._time)
             else :
                 time.sleep(30)

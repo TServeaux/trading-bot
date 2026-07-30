@@ -7,8 +7,15 @@ class Notifier:
         self._chatId = chatId
     
     def _sendMessage(self, text):
+        url = f'https://api.telegram.org/bot{self._token}/sendMessage'
         r= requests.post(f'https://api.telegram.org/bot{self._token}/sendMessage',
                        data={'chat_id' : self._chatId, 'text' : text})
+        
+        if not r.json().get('ok'):
+            print(f"ÉCHEC — URL: {url}")
+            print(f"chat_id: '{self._2chatId}'")
+            print(f"text: '{text}'")
+            print(f"réponse: {r.json()}")
 
         print(r.json())
 

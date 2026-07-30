@@ -1,0 +1,20 @@
+{
+    "stats": {
+        "totalsTrades": 1,
+        "totalsProfits": -0.3100000000000023,
+        "bestTrade": 0,
+        "worstTrade": -0.3100000000000023,
+        "winrate": 0.0,
+        "win": 0,
+        "lose": 1
+    },
+    "trades": [
+        {
+            "closedTimestamp": 1785363167496,
+            "openTimestamp": 1785354144730,
+            "openPrice": 190.27,
+            "closedPrice": 190.58,
+            "profit": -0.3100000000000023
+        }
+    ]
+}
