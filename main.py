@@ -20,7 +20,7 @@ secretKey = os.getenv('KRAKEN_SECRET_KEY')
 telegramChatId = os.getenv('TELEGRAM_CHAT_ID')
 telegramToken = os.getenv('TELEGRAM_TOKEN')
 
-symbol = 'TAO/USD:USD'
+symbol = symbol = os.getenv('SYMBOL', 'TAO/USD:USD')
 
 if __name__ == '__main__':
     combos = {'MACDxRSIxMFI' : [StrategieMACD,StrategieRSI,StrategyMFI],
