@@ -3,7 +3,7 @@ import os
 
 class Stats:
 
-    def __init__(self):
+    def __init__(self, symbol):
 
         self._totalTrades = 0
         self._totalProfit = 0
@@ -13,6 +13,7 @@ class Stats:
         self._win = 0
         self._lose = 0
         self._alltrade = []
+        self._symbol = symbol.split('/')[0]
 
     def tradeFinished(self,trade):
 
@@ -57,6 +58,7 @@ class Stats:
         
         os.makedirs('data', exist_ok=True)
 
+        filename = f"{self._symbol}_{filename}"
         path = os.path.join('data', filename)
         stats, trades = self.getStats()
         data = {'stats' : stats, 'trades' : trades}
@@ -66,6 +68,7 @@ class Stats:
 
     def loadData(self, filename):
 
+        filename = f"{self._symbol}_{filename}"
         path = os.path.join('data', filename)
 
         if not os.path.exists(path):

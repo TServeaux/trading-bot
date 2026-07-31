@@ -43,7 +43,7 @@ class Bot:
 
         self._strategies = {}
         for name, strats in combos.items():
-            risk, stats = RiskManager(), Stats()
+            risk, stats = RiskManager(), Stats(self._symbol)
             stats.loadData(f'{name}.json')
             self._strategies[name] = {
                 'combo': strats,
