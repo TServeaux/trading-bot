@@ -10,9 +10,11 @@ telegramToken = os.getenv('TELEGRAM_TOKEN')
 
 if __name__ == "__main__" :
     
-    try :
-        telegramBot = TelegramService(telegramToken, telegramChatId)
-        time.wait(3)
-        
-    except :
-        time.wait(30)
+    telegramBot = TelegramService(telegramToken, telegramChatId)
+    
+    while True:
+        try:
+            telegramBot.getCommand()
+        except Exception as e:
+            print(e)
+        time.sleep(2)
