@@ -69,7 +69,6 @@ class Bot:
             errorOccured = False    
 
             try :
-                self._notifier.getCommand(self._strategies)
                 candles = self._dataFeed.getCandles(self._symbol, self._timeFrame, self._limit)
                 print(f"Prix actuel : {self._exchange.checkPrice(self._symbol)}")
                 print(f"Nombre de bougies : {len(candles)}")
