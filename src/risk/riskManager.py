@@ -1,6 +1,6 @@
 class RiskManager:
 
-    def __init__(self, cash=10, maxTradingInvestement=0.5):
+    def __init__(self, cash=100, maxTradingInvestement=0.5):
         self._cash = cash
         self._maxTradingInvestement = maxTradingInvestement
         self._engaged = 0
