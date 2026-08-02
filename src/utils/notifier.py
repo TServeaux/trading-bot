@@ -2,9 +2,10 @@ import requests
 
 class Notifier:
 
-    def __init__(self, token, chatId):
+    def __init__(self, token, chatId,  symbol):
         self._token = token
         self._chatId = chatId
+        self._symbol = symbol
         self._offset = 0
     
     def _sendMessage(self, text):
@@ -20,8 +21,9 @@ class Notifier:
 
         print(r.json())
 
-    def sendTradeOpened(self, trade):
+    def sendTradeOpened(self, trade, strategy):
         text = (
+            f"Symbol : {self._symbol} | Strategie : {strategy}\n\n"
             f"Trade ouvert : {trade['openTimestamp']}\n"
             f"Position : {trade['side']}\n"
             f"Prix : {trade['openPrice']}\n"
@@ -29,8 +31,9 @@ class Notifier:
         )
         self._sendMessage(text=text)
     
-    def sendTradeClosed(self, trade):
+    def sendTradeClosed(self, trade, strategy):
         text = (
+            f"Symbol : {self._symbol} | Strategie : {strategy}\n\n"
             f"Trade ferme : {trade['closedTimestamp']}\n"
             f"Prix : {trade['closedPrice']}\n"
             f"Profit : {trade['profit']}"

@@ -37,16 +37,16 @@ class OrderManager:
                     self._riskManager.releaseCash(lastAmount)
                     self._isShort = False
                     self._stats.tradeFinished(closedTrade)
-                    self._notifier.sendTradeClosed(closedTrade)
+                    self._notifier.sendTradeClosed(closedTrade, self._name)
                     self._stats.saveData(f'{self._name}.json')
 
                     openedTrade = self._exchange.openPos(position, self._symbol, self._amount, takeProfit, stopLoss)
-                    self._notifier.sendTradeOpened(openedTrade)
+                    self._notifier.sendTradeOpened(openedTrade,  self._name)
                     self._id =openedTrade['id']
 
                 else :
                     openedTrade = self._exchange.openPos(position, self._symbol, self._amount, takeProfit, stopLoss)
-                    self._notifier.sendTradeOpened(openedTrade)
+                    self._notifier.sendTradeOpened(openedTrade,  self._name)
                     self._id =openedTrade['id']
                 
             
@@ -59,16 +59,16 @@ class OrderManager:
                     self._riskManager.releaseCash(lastAmount)
                     self._isLong = False
                     self._stats.tradeFinished(closedTrade)
-                    self._notifier.sendTradeClosed(closedTrade)
+                    self._notifier.sendTradeClosed(closedTrade, self._name)
                     self._stats.saveData(f'{self._name}.json')
 
                     openedTrade = self._exchange.openPos(position, self._symbol, self._amount, takeProfit, stopLoss)
-                    self._notifier.sendTradeOpened(openedTrade)
+                    self._notifier.sendTradeOpened(openedTrade,  self._name)
                     self._id = openedTrade['id']
 
                 else :
                     openedTrade = self._exchange.openPos(position, self._symbol, self._amount, takeProfit, stopLoss)
-                    self._notifier.sendTradeOpened(openedTrade)
+                    self._notifier.sendTradeOpened(openedTrade,  self._name)
                     self._id =openedTrade['id']
 
         else :
@@ -81,7 +81,7 @@ class OrderManager:
                 self._riskManager.manageCash(trade['profit'])
                 self._riskManager.releaseCash(self._amount)
                 self._stats.tradeFinished(trade)
-                self._notifier.sendTradeClosed(trade)
+                self._notifier.sendTradeClosed(trade, self._name)
                 self._stats.saveData(f'{self._name}.json')
                 self._isLong = False
                 self._isShort = False

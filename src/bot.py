@@ -37,7 +37,7 @@ class Bot:
         else:
             self._exchange = realExchange
         
-        self._notifier = Notifier(tokenTelegram, chatId)
+        self._notifier = Notifier(tokenTelegram, chatId, self._symbol)
         self._dataFeed = DataFeed(self._exchange)
         self.setTime()
 
