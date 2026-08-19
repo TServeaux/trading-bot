@@ -74,7 +74,7 @@ class TelegramService:
     
     def getUpdates(self):
         url = f'https://api.telegram.org/bot{self._token}/getUpdates'
-        r = requests.get(url, params={'offset': self._offset})
+        r = requests.get(url, params={'offset': self._offset}, timeout=30)
         data = r.json()
 
         received = []                             
