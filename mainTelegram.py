@@ -1,3 +1,12 @@
+"""
+Author : Tao Serveaux
+Date : 21/09/2026
+Description: Entry point script for the Telegram companion process. Loads
+    Telegram credentials from environment variables and continuously polls
+    Telegram for incoming commands (e.g. /stats), replying with trading
+    statistics.
+"""
+
 from dotenv import load_dotenv
 from src.utils.telegramService import TelegramService
 import os

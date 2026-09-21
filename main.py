@@ -1,3 +1,12 @@
+"""
+Author : Tao Serveaux
+Date : 21/09/2026
+Description: Entry point script for the live/paper trading bot. Loads
+    configuration (API keys, Telegram credentials, trading symbol) from
+    environment variables, defines the strategy combinations to run, and
+    starts the Bot's main loop.
+"""
+
 from dotenv import load_dotenv
 from src.bot import Bot
 import os
